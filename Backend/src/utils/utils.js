@@ -187,7 +187,7 @@ const getWelcomeHtml = (username) => `
 
               <!-- CTA Button -->
               <div style="margin:32px 0 0;">
-                <a href="http://localhost:5173/login" style="display:inline-block;background:linear-gradient(135deg,#6c63ff,#4f46e5);color:#fff;text-decoration:none;padding:14px 36px;border-radius:8px;font-size:16px;font-weight:600;letter-spacing:0.5px;">
+                <a href="https://hire-sync-alpha-livid.vercel.app/login" style="display:inline-block;background:linear-gradient(135deg,#6c63ff,#4f46e5);color:#fff;text-decoration:none;padding:14px 36px;border-radius:8px;font-size:16px;font-weight:600;letter-spacing:0.5px;">
                   Start Preparing →
                 </a>
               </div>
