@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 import sendEmail from '../services/email.services.js'
 import { generateOTP, getOTPhtml, getWelcomeHtml} from '../utils/utils.js'
 
-// ── 1. Check username/email availability ──────────────────────
+// Check whether a username or email is already registered
 const checkAvailability = async (req, res) => {
     try {
         const { field, value } = req.body
@@ -31,7 +31,7 @@ const checkAvailability = async (req, res) => {
     }
 }
 
-// ── 2. Register — user banao + OTP bhejo ─────────────────────
+// Register a new user and send verification OTP to email
 const registerUser = async (req, res) => {
     try {
         const { username, email, password } = req.body
@@ -60,7 +60,7 @@ const registerUser = async (req, res) => {
             password: hash
         })
 
-        // Purana OTP delete karo agar tha (resend case)
+        // Delete any existing OTP records before sending a new code
         await OTP.deleteMany({ userId: user._id })
 
         const otp = generateOTP()
@@ -100,7 +100,7 @@ const registerUser = async (req, res) => {
     }
 }
 
-// ── 3. Verify Email via OTP ───────────────────────────────────
+// Verify the user's email using the submitted OTP
 const verifyEmail = async (req, res) => {
     try {
         const { email, otp } = req.body
@@ -149,7 +149,7 @@ const verifyEmail = async (req, res) => {
 await user.save()
 
 await OTP.deleteOne({ _id: otpDoc._id })
-console.log("html:", getWelcomeHtml(user.username)?.slice(0, 100)) // 👈 yahan
+console.log("preview welcome email html:", getWelcomeHtml(user.username)?.slice(0, 100))
 
     try {
      await sendEmail(
@@ -177,7 +177,7 @@ return res.status(200).json({
     }
 }
 
-// ── 4. Resend OTP ─────────────────────────────────────────────
+// Send a new OTP if the user's email is not yet verified
 const resendOtp = async (req, res) => {
     try {
         const { email } = req.body
@@ -224,7 +224,7 @@ const resendOtp = async (req, res) => {
     }
 }
 
-// ── 5. Login ──────────────────────────────────────────────────
+// Authenticate user login and enforce email verification
 const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body
@@ -261,10 +261,10 @@ const loginUser = async (req, res) => {
         )
 
         res.cookie("token", token, {
-         httpOnly: true,
-         sameSite: "none",  // cross-domain ke liye
-         secure: true,       // https ke liye
-         maxAge: 1 * 24 * 60 * 60 * 1000
+            httpOnly: true,
+            sameSite: "none",  // allow cross-site cookie usage
+            secure: true,       // require secure cookie over HTTPS
+            maxAge: 1 * 24 * 60 * 60 * 1000
         })
 
         user.password = undefined

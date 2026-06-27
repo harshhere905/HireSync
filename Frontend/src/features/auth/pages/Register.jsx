@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth.js";
 import LoadingState from "../../../components/LoadingState.jsx";
 
-// ── Debounce Hook ─────────────────────────────────────────────
 const useDebounce = (value, delay = 600) => {
   const [debounced, setDebounced] = useState(value);
   useEffect(() => {
@@ -15,7 +14,6 @@ const useDebounce = (value, delay = 600) => {
   return debounced;
 };
 
-// ── OTP Modal ─────────────────────────────────────────────────
 const OtpModal = ({ email, onVerified, onClose }) => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [error, setError] = useState("");
@@ -148,7 +146,6 @@ const OtpModal = ({ email, onVerified, onClose }) => {
   );
 };
 
-// ── Main Register Component ───────────────────────────────────
 const Register = () => {
   const [formData, setFormData] = useState({ username: "", email: "", password: "" });
 
@@ -170,7 +167,6 @@ const Register = () => {
   const { loading } = useAuth();
   const navigate    = useNavigate();
 
-  // ── Check username availability ──
   useEffect(() => {
     if (!debouncedUsername) { setUsernameStatus(null); return; }
     fetch(`${API_BASE}/check-availability`, {
@@ -182,7 +178,6 @@ const Register = () => {
       .then((d) => setUsernameStatus(d.available));
   }, [debouncedUsername]);
 
-  // ── Check email availability ──
   useEffect(() => {
     if (!debouncedEmail) { setEmailStatus(null); return; }
     fetch(`${API_BASE}/check-availability`, {
@@ -213,7 +208,6 @@ const Register = () => {
     }
   };
 
-  // ── Submit → /register → OTP modal ──
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormError("");
@@ -269,7 +263,6 @@ const Register = () => {
         />
       )}
 
-      {/* ── Left: Form ── */}
       <div className="auth-page__form">
         <div className="auth-page__brand" onClick={() => navigate("/")}>
           <div className="logo-dot" />
@@ -285,7 +278,6 @@ const Register = () => {
 
             <form className="auth__form" onSubmit={handleSubmit}>
 
-              {/* Username */}
               <div className="form-group">
                 <label>Username</label>
                 <input
@@ -303,7 +295,6 @@ const Register = () => {
                 )}
               </div>
 
-              {/* Email */}
               <div className="form-group">
                 <label>Email</label>
                 <input
@@ -321,7 +312,6 @@ const Register = () => {
                 )}
               </div>
 
-              {/* Password */}
               <div className="form-group">
                 <label>Password</label>
                 <input
@@ -374,7 +364,6 @@ const Register = () => {
         </div>
       </div>
 
-      {/* ── Right: Visual ── */}
       <div className="auth-page__visual">
         <div className="auth-page__visual-glow auth-page__visual-glow--1" />
         <div className="auth-page__visual-glow auth-page__visual-glow--2" />

@@ -28,7 +28,7 @@ const Login = () => {
     setFormError("");
     try {
       await handleLogin(formData);
-      navigate("/home"); // now this only runs if login actually succeeded
+      navigate("/home"); 
     } catch (err) {
       setFormError(
         err?.response?.data?.message ||
@@ -45,7 +45,6 @@ const Login = () => {
   return (
     <div className="auth-page">
 
-      {/* ── Left: Form ── */}
       <div className="auth-page__form">
         <div className="auth-page__brand" onClick={() => navigate("/")}>
           <div className="logo-dot" />
@@ -96,7 +95,6 @@ const Login = () => {
         </div>
       </div>
 
-      {/* ── Right: Visual ── */}
       <div className="auth-page__visual">
         <div className="auth-page__visual-glow auth-page__visual-glow--1" />
         <div className="auth-page__visual-glow auth-page__visual-glow--2" />

@@ -21,7 +21,6 @@ const Home = () => {
   const [dragging, setDragging] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [generating, setGenerating] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState(null);
 
   const fileRef = useRef();
   const profileRef = useRef();
@@ -75,17 +74,14 @@ const Home = () => {
 
   const handleDeleteReport = async (event, reportId) => {
     event.stopPropagation();
-    setDeleteTarget(reportId);
-  };
 
-  const confirmDeleteReport = async () => {
-    if (!deleteTarget) return;
+    const confirmed = window.confirm("Delete this report?");
+    if (!confirmed) return;
 
-    const deleted = await deleteReport(deleteTarget);
+    const deleted = await deleteReport(reportId);
     if (!deleted) {
       alert("Failed to delete report.");
     }
-    setDeleteTarget(null);
   };
 
   if (loading || generating) {
@@ -259,25 +255,12 @@ const Home = () => {
         </div>
       </div>
 
-      {deleteTarget && (
-        <div className="delete-modal-overlay" onClick={() => setDeleteTarget(null)}>
-          <div className="delete-modal" onClick={(e) => e.stopPropagation()}>
-            <h3>Delete this report?</h3>
-            <p>This action cannot be undone.</p>
-            <div className="delete-modal__actions">
-              <button className="delete-modal__cancel" onClick={() => setDeleteTarget(null)}>Cancel</button>
-              <button className="delete-modal__confirm" onClick={confirmDeleteReport}>Delete</button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* ── Recent Reports ── */}
       {reports?.length > 0 && (
         <section className="recent-reports">
           <div className="recent-reports__header">
             <div>
-              <h2>Recent Reports</h2>
+              <h2>Recent reports</h2>
               <p>Pick up where you left off with your latest interview strategies.</p>
             </div>
           </div>
