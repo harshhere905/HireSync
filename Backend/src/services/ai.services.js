@@ -203,18 +203,61 @@ async function generatePdfFromHtml(htmlContent) {
 }
 
 async function generateResumePdf({ resume, selfDescription, jobDescription }) {
-    const prompt = `Generate a resume for a candidate with the following details:
-        Resume: ${resume || "Not provided"}
-        Self Description: ${selfDescription || "Not provided"}
-        Job Description: ${jobDescription}
+   const prompt = `
+You are an expert resume writer and ATS optimization specialist with experience recruiting at top technology companies.
 
-        Return ONLY a valid JSON object with a single field "html" containing the full HTML of the resume.
-        - Tailored to the job description, highlighting relevant strengths and experience
-        - Simple, professional design with subtle color/font accents
-        - ATS-friendly and easily parsable
-        - 1–2 pages when printed to PDF
-        - Do NOT sound AI-generated
-        - Return ONLY the JSON, no markdown, no explanation`
+Create a professional, ATS-friendly resume tailored specifically to the provided job description.
+
+CANDIDATE INFORMATION:
+Resume: ${resume || "Not provided"}
+
+Self Description:
+${selfDescription || "Not provided"}
+
+Target Job Description:
+${jobDescription}
+
+IMPORTANT REQUIREMENTS:
+
+1. The resume must be tailored specifically to the target role.
+2. Highlight only relevant skills, projects, technologies, and achievements.
+3. Use strong action verbs and quantify achievements where possible.
+4. The resume must look professional and modern while remaining ATS-friendly.
+5. Include these sections when information is available:
+   - Header (name, email, phone, links)
+   - Professional Summary
+   - Technical Skills
+   - Experience
+   - Projects
+   - Education
+   - Certifications
+   - Achievements
+6. Use clean HTML with embedded CSS.
+7. The HTML must be completely self-contained.
+8. Use professional typography and spacing.
+9. The final resume should fit within 1-2 printed A4 pages.
+10. Do NOT include placeholders like "Lorem Ipsum" or "[Your Name]".
+11. Do NOT mention AI or that this resume was generated.
+12. Escape all quotes properly to ensure valid JSON.
+
+Return ONLY a valid JSON object in exactly this format:
+
+{
+  "html": "<!DOCTYPE html><html>...</html>"
+}
+
+HTML REQUIREMENTS:
+- Include <!DOCTYPE html>
+- Include <html>, <head>, and <body>
+- Include CSS inside a <style> tag
+- Use black, white, and subtle accent colors only
+- Optimize for printing
+- Avoid external CSS libraries
+- Avoid JavaScript
+- Ensure the HTML renders correctly in Puppeteer
+
+Return ONLY valid JSON.
+`;
 
     const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
