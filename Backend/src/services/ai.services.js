@@ -203,27 +203,18 @@ async function generatePdfFromHtml(htmlContent) {
 }
 
 async function generateResumePdf({ resume, selfDescription, jobDescription }) {
-    const prompt = `You are an expert resume writer and ATS specialist.
+    const prompt = `Generate a resume for a candidate with the following details:
+        Resume: ${resume || "Not provided"}
+        Self Description: ${selfDescription || "Not provided"}
+        Job Description: ${jobDescription}
 
-Create a professional, tailored resume for this candidate:
-Resume/Experience: ${resume || "Not provided"}
-Self Description: ${selfDescription || "Not provided"}
-Job Description: ${jobDescription}
-
-STRICT RULES:
-- Return ONLY a JSON object with a single "html" field
-- The HTML must fit on a SINGLE PAGE (A4) when printed — no overflow at all
-- Use compact spacing, body font 11px, name 18px, section headers 13px
-- NO generic buzzwords: no "passionate", "motivated", "team player", "hardworking", "dynamic"
-- Action verbs only: Built, Developed, Optimized, Led, Implemented, Designed, Reduced, Increased
-- Tailor EVERY bullet point to match the job description keywords
-- Sections order: Header (name, email, phone, github/linkedin) → Summary (2 lines max) → Skills → Experience → Projects → Education
-- Skills: only list skills relevant to the job description
-- Each bullet: action verb + what you did + impact/metric if possible
-- CSS must include: body { margin: 0; padding: 16px; font-family: Arial, sans-serif; font-size: 11px; color: #111; }
-- Use only one accent color #4f46e5 for name and section headers
-- No borders except subtle hr lines between sections
-- Return ONLY the JSON object, no markdown, no explanation`
+        Return ONLY a valid JSON object with a single field "html" containing the full HTML of the resume.
+        - Tailored to the job description, highlighting relevant strengths and experience
+        - Simple, professional design with subtle color/font accents
+        - ATS-friendly and easily parsable
+        - 1–2 pages when printed to PDF
+        - Do NOT sound AI-generated
+        - Return ONLY the JSON, no markdown, no explanation`
 
     const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
