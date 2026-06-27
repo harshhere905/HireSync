@@ -1,0 +1,26 @@
+.custom-btn {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #1d4ed8;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    background: #3f3f46;
+    cursor: not-allowed;
+  }
+}

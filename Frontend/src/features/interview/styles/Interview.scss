@@ -1,0 +1,457 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+.interview {
+  display: flex;
+  min-height: 100vh;
+  background: #0a0a0c;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: #e2e8f0;
+
+  // ── Left Sidebar ──────────────────────────────────────
+  .sidebar {
+    width: 210px;
+    flex-shrink: 0;
+    padding: 32px 16px;
+    border-right: 1px solid #1e1e22;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .sidebar-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #334155;
+      letter-spacing: 0.1em;
+      padding: 0 10px;
+      margin-bottom: 8px;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: #64748b;
+      font-size: 0.85rem;
+      font-family: inherit;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      transition: background 0.15s, color 0.15s;
+
+      .nav-icon {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+      }
+
+      &:hover {
+        background: #161618;
+        color: #cbd5e1;
+      }
+
+      &.active {
+        background: rgba(244, 63, 94, 0.12);
+        color: #f43f5e;
+
+        .nav-icon svg {
+          stroke: #f43f5e;
+        }
+      }
+    }
+  }
+
+  // ── Main Content ──────────────────────────────────────
+  .main {
+    flex: 1;
+    padding: 32px 28px;
+    overflow-y: auto;
+    min-width: 0;
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+
+      h2 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #f8fafc;
+        margin: 0;
+        letter-spacing: -0.01em;
+      }
+
+      .q-count {
+        font-size: 0.72rem;
+        color: #475569;
+        background: #161618;
+        border: 1px solid #1e1e22;
+        padding: 3px 10px;
+        border-radius: 99px;
+      }
+    }
+
+    // Questions
+    .questions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .question-card {
+      background: #111113;
+      border: 1px solid #1e1e22;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.15s;
+
+      &.open {
+        border-color: #2a2a2e;
+      }
+
+      .q-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        width: 100%;
+        padding: 16px 18px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        text-align: left;
+        font-family: inherit;
+
+        &:hover {
+          background: #161618;
+        }
+
+        .q-num {
+          font-size: 0.7rem;
+          font-weight: 700;
+          color: #f43f5e;
+          background: rgba(244, 63, 94, 0.1);
+          border: 1px solid rgba(244, 63, 94, 0.2);
+          padding: 2px 7px;
+          border-radius: 5px;
+          flex-shrink: 0;
+          margin-top: 1px;
+          letter-spacing: 0.04em;
+        }
+
+        .q-text {
+          flex: 1;
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: #e2e8f0;
+          line-height: 1.5;
+        }
+
+        .q-chevron {
+          color: #475569;
+          flex-shrink: 0;
+          margin-top: 2px;
+        }
+      }
+
+      .q-body {
+        padding: 0 18px 18px;
+        border-top: 1px solid #1e1e22;
+        margin-top: 0;
+        padding-top: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .q-tag {
+        display: inline-block;
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        padding: 3px 9px;
+        border-radius: 5px;
+        width: fit-content;
+
+        &.tag-intention {
+          background: rgba(99, 102, 241, 0.12);
+          color: #818cf8;
+          border: 1px solid rgba(99, 102, 241, 0.25);
+        }
+
+        &.tag-answer {
+          background: rgba(16, 185, 129, 0.1);
+          color: #10b981;
+          border: 1px solid rgba(16, 185, 129, 0.2);
+          margin-top: 6px;
+        }
+      }
+
+      .q-detail {
+        font-size: 0.83rem;
+        color: #94a3b8;
+        line-height: 1.7;
+        margin: 0;
+      }
+    }
+
+    // Roadmap
+    .roadmap-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .roadmap-card {
+      background: #111113;
+      border: 1px solid #1e1e22;
+      border-left-width: 3px;
+      border-radius: 12px;
+      padding: 18px 20px;
+
+      &.priority-high { border-left-color: #f43f5e; }
+      &.priority-medium { border-left-color: #f59e0b; }
+      &.priority-low { border-left-color: #3b82f6; }
+
+      .roadmap-week {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #475569;
+        letter-spacing: 0.06em;
+        margin-bottom: 4px;
+      }
+
+      .roadmap-title {
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: #e2e8f0;
+        margin-bottom: 12px;
+      }
+
+      .roadmap-tasks {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+
+        li {
+          font-size: 0.82rem;
+          color: #94a3b8;
+          line-height: 1.5;
+          padding-left: 16px;
+          position: relative;
+
+          &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 7px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #334155;
+          }
+        }
+      }
+    }
+  }
+  .roadmap-resources {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #1e1e22;
+
+  .resources-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #334155;
+    letter-spacing: 0.08em;
+    margin: 0 0 8px;
+  }
+
+  .resource-link {
+    display: block;
+    font-size: 0.78rem;
+    color: #6c63ff;
+    text-decoration: none;
+    margin-bottom: 6px;
+    transition: color 0.15s;
+
+    &:hover {
+      color: #a78bfa;
+      text-decoration: underline;
+    }
+  }
+}
+
+  // ── Right Panel ───────────────────────────────────────
+  .right-panel {
+    width: 220px;
+    flex-shrink: 0;
+    padding: 32px 16px;
+    border-left: 1px solid #1e1e22;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+
+    .panel-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #334155;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+
+    .score-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .panel-label {
+        align-self: flex-start;
+      }
+
+      .score-ring {
+        margin: 4px 0 10px;
+      }
+
+      .score-label {
+        font-size: 0.78rem;
+        color: #22c55e;
+        font-weight: 500;
+        margin: 0;
+        text-align: center;
+      }
+    }
+
+    .gaps-section {
+      .gaps-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .gap-tag {
+        font-size: 0.75rem;
+        font-weight: 500;
+        padding: 7px 11px;
+        border-radius: 8px;
+        line-height: 1.4;
+
+        &.gap-red {
+          background: rgba(244, 63, 94, 0.12);
+          color: #fda4af;
+          border: 1px solid rgba(244, 63, 94, 0.2);
+        }
+
+        &.gap-orange {
+          background: rgba(245, 158, 11, 0.12);
+          color: #fcd34d;
+          border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        &.gap-blue {
+          background: rgba(59, 130, 246, 0.12);
+          color: #93c5fd;
+          border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        &.gap-green {
+          background: rgba(16, 185, 129, 0.12);
+          color: #6ee7b7;
+          border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+      }
+    }
+  }
+
+  // ── Responsive ────────────────────────────────────────
+  @media (max-width: 900px) {
+    .right-panel { display: none; }
+  }
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+
+    .sidebar {
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid #1e1e22;
+      padding: 18px 16px;
+    }
+
+    .main {
+      padding: 20px 16px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .sidebar { width: 100%; }
+    .main { padding: 18px 14px; }
+    .main .section-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .question-card .q-header { flex-wrap: wrap; }
+    .question-card .q-header .q-text { width: 100%; }
+  }
+}
+
+  // ── Download Button ───────────────────────────────────
+  .download-btn {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+    padding: 10px 14px;
+    background: rgba(244, 63, 94, 0.1);
+    border: 1px solid rgba(244, 63, 94, 0.2);
+    border-radius: 9px;
+    color: #f43f5e;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    width: 100%;
+    justify-content: center;
+
+    &:hover {
+      background: rgba(244, 63, 94, 0.18);
+      border-color: rgba(244, 63, 94, 0.35);
+    }
+  }
+
+  // ── Score label colors ────────────────────────────────
+  .score-label {
+    &.score--high { color: #22c55e; }
+    &.score--mid  { color: #f59e0b; }
+    &.score--low  { color: #f43f5e; }
+  }
+
+  // ── Gap tag severity (from API) ───────────────────────
+  .gap-tag {
+    &.gap-high {
+      background: rgba(244, 63, 94, 0.12);
+      color: #fda4af;
+      border: 1px solid rgba(244, 63, 94, 0.2);
+    }
+    &.gap-medium {
+      background: rgba(245, 158, 11, 0.12);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+    &.gap-low {
+      background: rgba(59, 130, 246, 0.12);
+      color: #93c5fd;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+  }
