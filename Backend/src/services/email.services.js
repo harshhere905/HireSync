@@ -1,46 +1,34 @@
-import nodemailer from 'nodemailer'
-import config from '../config/email.config.js'
+import Brevo from "@getbrevo/brevo";
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,
-  auth: {
-    type: 'OAuth2',
-    user: config.EMAIL_USER,
-    clientId: config.CLIENT_ID,
-    clientSecret: config.CLIENT_SECRET,
-    refreshToken: config.REFRESH_TOKEN,
-  },
-});
+const apiInstance = new Brevo.TransactionalEmailsApi();
 
-// Verify the connection configuration
-transporter.verify((error, success) => {
-  if (error) {
-    console.error('Error connecting to email server:', error);
-  } else {
-    console.log('Email server is ready to send messages');
-  }
-});
+apiInstance.setApiKey(
+  Brevo.TransactionalEmailsApiApiKeys.apiKey,
+  process.env.BREVO_API_KEY
+);
 
-// Function to send email
 const sendEmail = async (to, subject, text, html) => {
   try {
-    const info = await transporter.sendMail({
-      from: `"HireSync" <${config.EMAIL_USER}>`,
-      to,
+    const result = await apiInstance.sendTransacEmail({
+      sender: {
+        name: process.env.SENDER_NAME,
+        email: process.env.SENDER_EMAIL,
+      },
+      to: [{ email: to }],
       subject,
-      text,
-      html,
+      textContent: text,
+      htmlContent: html,
     });
 
-    console.log('Message sent: %s', info.messageId);
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-    return info;
+    console.log("Email sent successfully:", result.body);
+    return result;
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error(
+      "Brevo email error:",
+      error.response?.body || error
+    );
     throw error;
   }
 };
 
-export default sendEmail
+export default sendEmail;
