@@ -15,8 +15,6 @@ app.use(express.json())
 app.use(cookieParser());
 app.use('/api/v1/auth',AuthRoutes)
 app.use('/api/v1/interview',interviewRouter)
-app.get("/health", (req, res) => {
-    res.json({ status: "ok" })
-})
+
 
 export default app;
