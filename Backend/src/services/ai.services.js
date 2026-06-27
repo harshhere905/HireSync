@@ -4,6 +4,36 @@ import puppeteer from "puppeteer"
 const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_API_KEY
 })
+async function generateWithFallback(prompt) {
+    const models = [
+        "gemini-2.0-flash",
+        "gemini-2.5-flash-lite",
+        "gemini-2.5-flash"
+    ];
+
+    let lastError;
+
+    for (const model of models) {
+        try {
+            console.log(`Trying model: ${model}`);
+
+            const response = await ai.models.generateContent({
+                model,
+                contents: prompt,
+            });
+
+            console.log(`Success with ${model}`);
+            return response;
+        } catch (error) {
+            console.error(`Failed with ${model}:`, error);
+
+            lastError = error;
+            await new Promise(resolve => setTimeout(resolve, 2000));
+        }
+    }
+
+    throw lastError;
+}
 
 async function getInterviewReport({ title, resume, selfDescription, jobDescription }) {
     const prompt = `You are a senior technical recruiter and interview coach with 15 years at top tech companies like Google, Meta, Amazon.
@@ -162,10 +192,7 @@ IMPORTANT:
 
     console.log("Calling Gemini API for interview report...")
 
-    const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: prompt,
-    })
+    const response = await generateWithFallback(prompt)
 
     let text = response.text.trim()
     if (text.startsWith("```")) {
@@ -259,10 +286,7 @@ HTML REQUIREMENTS:
 Return ONLY valid JSON.
 `;
 
-    const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: prompt,
-    })
+    const response = await generateWithFallback(prompt)
 
     let text = response.text.trim()
     if (text.startsWith("```")) {
