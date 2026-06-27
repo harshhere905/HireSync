@@ -18,9 +18,13 @@ async function generateWithFallback(prompt) {
             console.log(`Trying model: ${model}`);
 
             const response = await ai.models.generateContent({
-                model,
-                contents: prompt,
-            });
+    model,
+    contents: prompt,
+    config: {
+        responseMimeType: "application/json",
+        temperature: 0.3,
+    },
+});
 
             console.log(`Success with ${model}`);
             return response;
