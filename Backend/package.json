@@ -27,6 +27,7 @@
     "pdf-parse": "^2.4.5",
     "pdf2json": "^4.0.3",
     "puppeteer": "^25.2.1",
+    "resend": "^6.16.0",
     "zod": "^4.4.3",
     "zod-to-json-schema": "^3.25.2"
   }
