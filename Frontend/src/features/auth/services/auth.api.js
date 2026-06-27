@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: "https://5fac-2405-201-680a-f03e-1d59-f218-5d25-b2c5.ngrok-free.app/api/v1",
+    baseURL: `${import.meta.env.VITE_API_URL}/api/v1`,
     withCredentials: true,
 })
 

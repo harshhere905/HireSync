@@ -23,7 +23,7 @@ const OtpModal = ({ email, onVerified, onClose }) => {
   const [resendTimer, setResendTimer] = useState(30);
   const inputRefs = useRef([]);
 
-  const API_BASE = "https://5fac-2405-201-680a-f03e-1d59-f218-5d25-b2c5.ngrok-free.app/api/v1/auth";
+  const API_BASE = `${import.meta.env.VITE_API_URL}/api/v1/auth`;
 
   useEffect(() => {
     if (resendTimer <= 0) return;
@@ -162,7 +162,7 @@ const Register = () => {
   const [emailVerified, setEmailVerified]   = useState(false);
   const [verificationMessage, setVerificationMessage] = useState("");
 
-  const API_BASE = "https://5fac-2405-201-680a-f03e-1d59-f218-5d25-b2c5.ngrok-free.app/api/v1/auth";
+  const API_BASE = `${import.meta.env.VITE_API_URL}/api/v1/auth`;
 
   const debouncedUsername = useDebounce(formData.username);
   const debouncedEmail    = useDebounce(formData.email);
