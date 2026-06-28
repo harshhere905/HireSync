@@ -1,0 +1,176 @@
+<svg width="100%" viewBox="0 0 680 900" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>HireSync full stack architecture</title>
+  <desc>Architecture diagram showing HireSync frontend features, backend layers, and external services</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+      .th { font-size: 13px; font-weight: 600; }
+      .ts { font-size: 11px; font-weight: 400; }
+      .arr { stroke: #888; stroke-width: 1.5; fill: none; }
+
+      .fe-out  { fill: #e1f5ee; stroke: #0f6e56; }
+      .fe-mid  { fill: #9fe1cb; stroke: #0f6e56; }
+      .fe-in   { fill: #5dcaa5; stroke: #0f6e56; }
+      .fe-th   { fill: #085041; }
+      .fe-ts   { fill: #0f6e56; }
+
+      .be-out  { fill: #eeedfe; stroke: #534ab7; }
+      .be-in   { fill: #afa9ec; stroke: #534ab7; }
+      .be-th   { fill: #26215c; }
+      .be-ts   { fill: #3c3489; }
+
+      .gr-box  { fill: #f1efe8; stroke: #5f5e5a; }
+      .gr-th   { fill: #2c2c2a; }
+      .gr-ts   { fill: #444441; }
+
+      .gn-box  { fill: #eaf3de; stroke: #3b6d11; }
+      .gn-th   { fill: #173404; }
+      .gn-ts   { fill: #27500a; }
+
+      .bl-box  { fill: #e6f1fb; stroke: #185fa5; }
+      .bl-th   { fill: #042c53; }
+      .bl-ts   { fill: #0c447c; }
+
+      .am-box  { fill: #faeeda; stroke: #854f0b; }
+      .am-th   { fill: #412402; }
+      .am-ts   { fill: #633806; }
+    </style>
+  </defs>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- FRONTEND -->
+  <!-- ══════════════════════════════════════ -->
+  <rect x="30" y="24" width="620" height="226" rx="14" class="fe-out" stroke-width="0.5"/>
+  <text class="th fe-th" x="340" y="48" text-anchor="middle">Frontend — React.js + Vite</text>
+
+  <!-- auth feature -->
+  <rect x="46"  y="60" width="278" height="174" rx="8" class="fe-mid" stroke-width="0.5"/>
+  <text class="th fe-th" x="185" y="82" text-anchor="middle">features/auth</text>
+
+  <rect x="58"  y="94" width="118" height="128" rx="6" class="fe-in" stroke-width="0.5"/>
+  <text class="ts fe-th" x="117" y="113" text-anchor="middle">pages/</text>
+  <text class="ts fe-ts" x="117" y="131" text-anchor="middle">Login.jsx</text>
+  <text class="ts fe-ts" x="117" y="149" text-anchor="middle">Register.jsx</text>
+  <text class="ts fe-th" x="117" y="171" text-anchor="middle">components/</text>
+  <text class="ts fe-ts" x="117" y="189" text-anchor="middle">Protected.jsx</text>
+  <text class="ts fe-ts" x="117" y="207" text-anchor="middle">Button.jsx</text>
+
+  <rect x="186" y="94" width="126" height="128" rx="6" class="fe-in" stroke-width="0.5"/>
+  <text class="ts fe-ts" x="249" y="113" text-anchor="middle">auth.context.jsx</text>
+  <text class="ts fe-ts" x="249" y="131" text-anchor="middle">hooks/useAuth.js</text>
+  <text class="ts fe-th" x="249" y="153" text-anchor="middle">services/</text>
+  <text class="ts fe-ts" x="249" y="171" text-anchor="middle">auth.api.js</text>
+  <text class="ts fe-th" x="249" y="193" text-anchor="middle">utils/</text>
+  <text class="ts fe-ts" x="249" y="211" text-anchor="middle">parseResume.js</text>
+
+  <!-- interview feature -->
+  <rect x="356" y="60" width="278" height="174" rx="8" class="fe-mid" stroke-width="0.5"/>
+  <text class="th fe-th" x="495" y="82" text-anchor="middle">features/interview</text>
+
+  <rect x="368" y="94" width="118" height="128" rx="6" class="fe-in" stroke-width="0.5"/>
+  <text class="ts fe-th" x="427" y="113" text-anchor="middle">pages/</text>
+  <text class="ts fe-ts" x="427" y="131" text-anchor="middle">Landing.jsx</text>
+  <text class="ts fe-ts" x="427" y="149" text-anchor="middle">Home.jsx</text>
+  <text class="ts fe-ts" x="427" y="167" text-anchor="middle">Interview.jsx</text>
+  <text class="ts fe-ts" x="427" y="185" text-anchor="middle">Help.jsx</text>
+  <text class="ts fe-ts" x="427" y="203" text-anchor="middle">Policy / Terms</text>
+
+  <rect x="496" y="94" width="126" height="128" rx="6" class="fe-in" stroke-width="0.5"/>
+  <text class="ts fe-ts" x="559" y="113" text-anchor="middle">interview.context</text>
+  <text class="ts fe-th" x="559" y="131" text-anchor="middle">hooks/</text>
+  <text class="ts fe-ts" x="559" y="149" text-anchor="middle">useInterview.js</text>
+  <text class="ts fe-th" x="559" y="171" text-anchor="middle">services/</text>
+  <text class="ts fe-ts" x="559" y="189" text-anchor="middle">interview.api.js</text>
+  <text class="ts fe-ts" x="559" y="211" text-anchor="middle">styles/ (SCSS)</text>
+
+  <!-- arrow fe → be -->
+  <line x1="340" y1="250" x2="340" y2="278" class="arr" marker-end="url(#arrow)"/>
+  <text class="ts" x="358" y="268" fill="#888">Axios / REST</text>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- BACKEND Express bar -->
+  <!-- ══════════════════════════════════════ -->
+  <rect x="30" y="280" width="620" height="50" rx="12" class="be-out" stroke-width="0.5"/>
+  <text class="th be-th" x="340" y="303" text-anchor="middle">Backend — Node.js + Express (src/app.js)</text>
+  <text class="ts be-ts" x="340" y="320" text-anchor="middle">routes → middlewares → controllers</text>
+
+  <line x1="185" y1="330" x2="185" y2="358" class="arr" marker-end="url(#arrow)"/>
+  <line x1="495" y1="330" x2="495" y2="358" class="arr" marker-end="url(#arrow)"/>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- ROUTES ROW -->
+  <!-- ══════════════════════════════════════ -->
+  <rect x="30"  y="360" width="298" height="148" rx="8" class="be-out" stroke-width="0.5"/>
+  <text class="th be-th" x="179" y="382" text-anchor="middle">auth.routes.js — /api/auth</text>
+  <text class="ts be-ts" x="179" y="400" text-anchor="middle">POST /register · /verify-email</text>
+  <text class="ts be-ts" x="179" y="418" text-anchor="middle">POST /resend-otp · /check-availability</text>
+  <text class="ts be-ts" x="179" y="436" text-anchor="middle">POST /login · /logout</text>
+  <text class="ts be-ts" x="179" y="454" text-anchor="middle">GET /user</text>
+  <text class="ts be-th" x="179" y="476" text-anchor="middle">→ authMiddleware · auth.controllers.js</text>
+
+  <rect x="352" y="360" width="298" height="148" rx="8" class="be-out" stroke-width="0.5"/>
+  <text class="th be-th" x="501" y="382" text-anchor="middle">interview.routes.js — /api/interview</text>
+  <text class="ts be-ts" x="501" y="400" text-anchor="middle">POST /  (resume + JD upload)</text>
+  <text class="ts be-ts" x="501" y="418" text-anchor="middle">GET /reports · /report/:id</text>
+  <text class="ts be-ts" x="501" y="436" text-anchor="middle">POST /resume/pdf/:id</text>
+  <text class="ts be-ts" x="501" y="454" text-anchor="middle">DELETE /report/:id</text>
+  <text class="ts be-th" x="501" y="476" text-anchor="middle">→ authMiddleware · fileMiddleware</text>
+
+  <line x1="185" y1="508" x2="185" y2="536" class="arr" marker-end="url(#arrow)"/>
+  <line x1="495" y1="508" x2="495" y2="536" class="arr" marker-end="url(#arrow)"/>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- MODELS + SERVICES ROW -->
+  <!-- ══════════════════════════════════════ -->
+  <rect x="30"  y="538" width="298" height="118" rx="8" class="gr-box" stroke-width="0.5"/>
+  <text class="th gr-th" x="179" y="560" text-anchor="middle">models/</text>
+  <text class="ts gr-ts" x="179" y="580" text-anchor="middle">user.models.js</text>
+  <text class="ts gr-ts" x="179" y="598" text-anchor="middle">otp.models.js</text>
+  <text class="ts gr-ts" x="179" y="616" text-anchor="middle">blacklist.models.js  (token blacklist)</text>
+  <text class="ts gr-ts" x="179" y="634" text-anchor="middle">InterviewReport.models.js</text>
+
+  <rect x="352" y="538" width="298" height="118" rx="8" class="gr-box" stroke-width="0.5"/>
+  <text class="th gr-th" x="501" y="560" text-anchor="middle">services/ + config/</text>
+  <text class="ts gr-ts" x="501" y="580" text-anchor="middle">ai.services.js  (Gemini prompts)</text>
+  <text class="ts gr-ts" x="501" y="598" text-anchor="middle">email.services.js  (OTP + welcome)</text>
+  <text class="ts gr-ts" x="501" y="616" text-anchor="middle">config/database.config.js</text>
+  <text class="ts gr-ts" x="501" y="634" text-anchor="middle">config/email.config.js</text>
+
+  <line x1="179" y1="656" x2="120" y2="694" class="arr" marker-end="url(#arrow)"/>
+  <line x1="501" y1="656" x2="380" y2="694" class="arr" marker-end="url(#arrow)"/>
+  <line x1="501" y1="656" x2="560" y2="694" class="arr" marker-end="url(#arrow)"/>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- EXTERNAL SERVICES -->
+  <!-- ══════════════════════════════════════ -->
+  <rect x="30"  y="696" width="180" height="162" rx="8" class="gn-box" stroke-width="0.5"/>
+  <text class="th gn-th" x="120" y="718" text-anchor="middle">MongoDB Atlas</text>
+  <text class="ts gn-ts" x="120" y="738" text-anchor="middle">MONGO_URI</text>
+  <text class="ts gn-ts" x="120" y="756" text-anchor="middle">users collection</text>
+  <text class="ts gn-ts" x="120" y="774" text-anchor="middle">otp collection</text>
+  <text class="ts gn-ts" x="120" y="792" text-anchor="middle">blacklist collection</text>
+  <text class="ts gn-ts" x="120" y="810" text-anchor="middle">interviewreports</text>
+  <text class="ts gn-ts" x="120" y="836" text-anchor="middle">Mongoose ODM</text>
+
+  <rect x="250" y="696" width="180" height="162" rx="8" class="bl-box" stroke-width="0.5"/>
+  <text class="th bl-th" x="340" y="718" text-anchor="middle">Google Gemini AI</text>
+  <text class="ts bl-ts" x="340" y="738" text-anchor="middle">ai.services.js</text>
+  <text class="ts bl-ts" x="340" y="756" text-anchor="middle">Resume parsing</text>
+  <text class="ts bl-ts" x="340" y="774" text-anchor="middle">Skill gap analysis</text>
+  <text class="ts bl-ts" x="340" y="792" text-anchor="middle">Question generation</text>
+  <text class="ts bl-ts" x="340" y="810" text-anchor="middle">ATS resume HTML</text>
+  <text class="ts bl-ts" x="340" y="836" text-anchor="middle">Zod schema output</text>
+
+  <rect x="470" y="696" width="180" height="162" rx="8" class="am-box" stroke-width="0.5"/>
+  <text class="th am-th" x="560" y="718" text-anchor="middle">Brevo SMTP + PDF</text>
+  <text class="ts am-ts" x="560" y="738" text-anchor="middle">email.services.js</text>
+  <text class="ts am-ts" x="560" y="756" text-anchor="middle">OTP delivery</text>
+  <text class="ts am-ts" x="560" y="774" text-anchor="middle">Welcome email</text>
+  <text class="ts am-ts" x="560" y="796" text-anchor="middle">Puppeteer</text>
+  <text class="ts am-ts" x="560" y="814" text-anchor="middle">HTML → PDF</text>
+  <text class="ts am-ts" x="560" y="836" text-anchor="middle">ATS resume export</text>
+
+</svg>
