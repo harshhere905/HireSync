@@ -78,7 +78,7 @@ const LoadingState = ({ text }) => {
             color: "#52525b",
             animation: "shimmer 2s ease infinite",
           }}>
-            Our AI is working its magic
+            This won't take long…
           </p>
         </div>
 

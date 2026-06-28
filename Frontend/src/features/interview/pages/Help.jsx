@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     q: "Is HireSync free to use?",
-    a: "Yes, getting started and generating your first interview plan is free — no sign-up friction required.",
+    a: "Yes, HireSync is free to use. You'll need to create an account to generate your interview plan — sign-up takes under a minute and unlocks all features.",
   },
 ];
 
