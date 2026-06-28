@@ -19,6 +19,12 @@
 
 ---
 
+## 🖥️ App Preview
+
+![HireSync Home Page](./images/home-preview.png)
+
+---
+
 ## ✨ Features
 
 | Feature | Description |
@@ -45,47 +51,98 @@
 ```
 HireSync/
 │
-├── backend/
-│   ├── config/
-│   │   └── db.js                          # MongoDB connection via Mongoose
+├── backend/                               # Node.js + Express server
+│   ├── src/
+│   │   ├── app.js                         # Express app entry point
+│   │   │
+│   │   ├── config/
+│   │   │   ├── database.config.js         # MongoDB connection via Mongoose
+│   │   │   └── email.config.js            # Brevo SMTP configuration
+│   │   │
+│   │   ├── controllers/
+│   │   │   ├── auth.controllers.js        # Register, Login, Logout, OTP logic
+│   │   │   └── generateInterviewReport.controllers.js  # AI report + PDF generation
+│   │   │
+│   │   ├── middlewares/
+│   │   │   ├── auth.middleware.js         # JWT verification middleware
+│   │   │   └── file.middleware.js         # Multer PDF/DOCX upload middleware
+│   │   │
+│   │   ├── models/
+│   │   │   ├── user.models.js             # User schema & model
+│   │   │   ├── otp.models.js              # OTP schema (time-limited, single-use)
+│   │   │   ├── blacklist.models.js        # JWT token blacklist on logout
+│   │   │   └── InterviewReport.models.js  # Interview report schema (Zod-validated)
+│   │   │
+│   │   ├── routes/
+│   │   │   ├── auth.routes.js             # /api/auth/* endpoints
+│   │   │   └── interview.routes.js        # /api/interview/* endpoints
+│   │   │
+│   │   ├── services/
+│   │   │   ├── ai.services.js             # Google Gemini API integration
+│   │   │   └── email.services.js          # Brevo email delivery (OTP + welcome)
+│   │   │
+│   │   └── utils/
+│   │       └── utils.js                   # Shared utility functions
 │   │
-│   ├── controllers/
-│   │   ├── auth.controllers.js            # Register, Login, Logout, OTP logic
-│   │   └── generateInterviewReport.controllers.js  # AI report + PDF generation
-│   │
-│   ├── middlewares/
-│   │   ├── auth.middleware.js             # JWT verification middleware
-│   │   └── file.middleware.js             # Multer PDF upload middleware
-│   │
-│   ├── models/
-│   │   ├── User.models.js                 # User schema & model
-│   │   └── InterviewReport.models.js      # Interview report schema (Zod-validated)
-│   │
-│   ├── routes/
-│   │   ├── auth.routes.js                 # /api/auth/* endpoints
-│   │   └── interviewReport.routes.js      # /api/interview/* endpoints
-│   │
-│   ├── utils/
-│   │   ├── mailer.js                      # Brevo SMTP email service
-│   │   ├── gemini.js                      # Google Gemini API integration
-│   │   └── pdfGenerator.js               # Puppeteer HTML → PDF
-│   │
-│   ├── .env.example
-│   └── server.js
+│   └── .env.example
 │
-└── frontend/
-    ├── src/
-    │   ├── components/                    # Reusable UI components
-    │   ├── pages/                         # Route-level page components
-    │   ├── context/                       # Global state via Context API
-    │   ├── hooks/                         # Custom React hooks
-    │   ├── services/                      # Axios API service layer
-    │   └── styles/                        # SCSS stylesheets
+└── frontend/                              # React.js + Vite client
+    ├── public/
+    │   └── assets/
+    │       └── auth-illustration.png
     │
-    ├── .env.example
-    └── vite.config.js
+    ├── src/
+    │   ├── App.jsx                        # Root component & route definitions
+    │   ├── main.jsx                       # Vite entry point
+    │   ├── style.scss                     # Global styles
+    │   │
+    │   ├── components/
+    │   │   └── LoadingState.jsx           # Shared loading spinner component
+    │   │
+    │   ├── features/
+    │   │   ├── auth/                      # Authentication feature
+    │   │   │   ├── auth.context.jsx       # Auth global state (Context API)
+    │   │   │   ├── auth.form.scss         # Shared auth form styles
+    │   │   │   ├── components/
+    │   │   │   │   ├── Button.jsx         # Reusable button component
+    │   │   │   │   └── Protected.jsx      # Protected route wrapper
+    │   │   │   ├── hooks/
+    │   │   │   │   └── useAuth.js         # Auth hook (login, register, logout)
+    │   │   │   ├── pages/
+    │   │   │   │   ├── Login.jsx
+    │   │   │   │   └── Register.jsx
+    │   │   │   └── services/
+    │   │   │       └── auth.api.js        # Axios calls for auth endpoints
+    │   │   │
+    │   │   └── interview/                 # Interview & app pages feature
+    │   │       ├── interview.context.jsx  # Interview global state (Context API)
+    │   │       ├── hooks/
+    │   │       │   └── useInterview.js    # Interview data fetching hook
+    │   │       ├── pages/
+    │   │       │   ├── Landing.jsx        # Public landing page
+    │   │       │   ├── Home.jsx           # Dashboard (post-login)
+    │   │       │   ├── Interview.jsx      # Report generation & display
+    │   │       │   ├── Help.jsx           # FAQ / Help center
+    │   │       │   ├── Policy.jsx         # Privacy policy
+    │   │       │   └── Terms.jsx          # Terms of service
+    │   │       ├── services/
+    │   │       │   └── interview.api.js   # Axios calls for interview endpoints
+    │   │       └── styles/
+    │   │           ├── Landing.scss
+    │   │           ├── Home.scss
+    │   │           ├── Interview.scss
+    │   │           ├── Help.scss
+    │   │           ├── Policy.scss
+    │   │           └── Terms.scss
+    │   │
+    │   ├── style/
+    │   │   └── Button.scss
+    │   │
+    │   └── utils/
+    │       └── parseResume.js             # Client-side resume parsing utility
+    │
+    └── .env.example
 ```
-
 ---
 
 ## 📡 API Endpoints
@@ -436,6 +493,6 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 ---
 
 <div align="center">
-Made with ❤️ by <a href="https://github.com/your-username">harshhere905</a><br><br>
+Made with ❤️ by <a href="https://github.com/your-username">your-username</a><br><br>
 ⭐ <strong>Star this repo if you found it helpful!</strong> ⭐
 </div>
