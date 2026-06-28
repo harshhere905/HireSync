@@ -319,9 +319,11 @@ HireSync/
 
 ![Skill Gap Analysis](./images/skill-gap-page.png)
 
-**ATS-optimized resume PDF preview:**
+**ATS-optimized resume PDF:**
 
-![Resume PDF Preview](./images/resume-pdf-page.png)
+> Once the report is generated, clicking "Download Resume" triggers a direct PDF download — an ATS-optimized, role-tailored resume built from your profile.
+
+![Resume PDF](./images/resume-pdf-page.png)
 
 </details>
 
