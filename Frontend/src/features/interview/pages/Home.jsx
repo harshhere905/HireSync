@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import "../styles/Home.scss";
-import { useInterview } from "../../auth/hooks/useInterview.js";
+import { useInterview } from "../hooks/useInterview.js";
 import { useNavigate } from "react-router";
 import useAuth from "../../auth/hooks/useAuth.js";
 import LoadingState from "../../../components/LoadingState.jsx";

@@ -4,10 +4,10 @@ import {
   getInterviewReportById,
   generateResumePdf,
   deleteInterviewReport,
-} from "../services/interview.api.js";
+} from "../../auth/services/interview.api.js";
 
 import { useContext } from "react";
-import { InterviewContext } from "../../interview/interview.context.jsx";
+import { InterviewContext } from "../interview.context.jsx";
 
 export const useInterview = () => {
   const context = useContext(InterviewContext);
