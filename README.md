@@ -315,9 +315,9 @@ HireSync/
 
 ![Interview Report Page](./images/interview-report-page.png)
 
-**Skill gap analysis:**
+**Interview prep roadmap:**
 
-![Skill Gap Analysis](./images/skill-gap-page.png)
+![Interview Prep Roadmap](./images/roadmap-page.png)
 
 **ATS-optimized resume PDF:**
 
